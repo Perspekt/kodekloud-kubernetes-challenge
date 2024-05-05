@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecom-web-deployment  # Replace with your desired deployment name
+spec:
+  replicas: 1  # You can adjust the number of replicas here
+  selector:
+    matchLabels:
+      app: ecom-web
+  template:
+    metadata:
+      labels:
+        app: ecom-web
+    spec:
+      containers:
+      - name: ecom-web
+        image: 081816754398.dkr.ecr.ap-southeast-2.amazonaws.com/ecom-web:latest
+        ports:
+        - containerPort: 80  # You can adjust the container port here
+          # Add more ports if your container exposes them
+        env:
+          - name: "DB_HOST"
+            value: "mysql-service"
+          - name: "DB_USER"
+            value: "ecomuser"
+          - name: "DB_PASSWORD"
+            value: "ecompassword"
+          - name: "DB_NAME"
+            value: "ecomdb"
+          - name: FEATURE_DARK_MODE
+            valueFrom:
+              configMapKeyRef:
+                name: feature-toggle-config
+                key: FEATURE_DARK_MODE
+      # Add any additional resources requests/limits or environment variables here
+

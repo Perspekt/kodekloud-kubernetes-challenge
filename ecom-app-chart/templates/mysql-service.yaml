@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app: mariadb  # Matches the label of your deployment pods
+  ports:
+  - protocol: TCP
+    port: 3306  # Matches the container port of your MariaDB deployment
+    targetPort: 3306  # Target port within the pod (usually the same)
+  type: ClusterIP  # Specify ClusterIP service type
