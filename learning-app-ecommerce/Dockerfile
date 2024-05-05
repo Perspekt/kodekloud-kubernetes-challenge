@@ -3,6 +3,8 @@ FROM php:7.4-apache
 # Install mysqli extension
 
 RUN apt-get update -y 
+
+#Per https://github.com/docker-library/php/issues/391
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 
 # Copy application source code
